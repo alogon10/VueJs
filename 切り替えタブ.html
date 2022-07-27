@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div class="tab">
+      <button class="btn" v-on:click="activeTab1" v-bind:class={switch1}>タブ１</button>
+      <button class="btn" v-on:click="activeTab2" v-bind:class={switch2}>タブ2</button>
+      <button class="btn" v-on:click="activeTab3" v-bind:class={switch3}>タブ3</button>
+      <div class="tab-content">
+        <div class="tab-content__item" v-show="tab1">コンテンツ1</div>
+        <div class="tab-content__item" v-show="tab2">コンテンツ2</div>
+        <div class="tab-content__item" v-show="tab3">コンテンツ3</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data() {
+        return {
+          tab1:"true",
+          tab2:"",
+          tab3:"",
+          switch1:"active",
+          switch2:"",
+          switch3:"",
+        }
+      },
+      methods: {
+        activeTab1() {
+          this.tab1 = "true",
+          this.tab2 = "",
+          this.tab3 = ""
+        },
+        activeTab2() {
+          this.tab1 = "",
+          this.tab2 = "true",
+          this.tab3 = ""
+        },
+        activeTab3() {
+          this.tab1 = "",
+          this.tab2 = "",
+          this.tab3 = "true"
+        },
+      },
+      computed:{
+        switchTab(){
+          if(this.tab1==="true"){
+            this.switch1 ="active";
+            this.switch2 = "";
+            this.switch3 = "";
+          }else if(this.tab2==="true"){
+            this.switch2 ="active";
+            this.switch1 = "";
+            this.switch3 = "";
+          }else{
+            this.switch3 ="active";
+            this.switch1 = "";
+            this.switch2 = "";
+          }
+        }
+      }
+    });
+  </script>
+  <style>
+.tab-content{
+  display: flex;
+}
+.btn{
+  background-color: white;
+}
+.switch1,.switch2,.switch3 {
+  background-color: black;
+  color: white;
+}
+</style>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div v-bind:class="classSwitch">
+      <button v-on:click="toggle">開く</button>
+      <div class="container" v-on:click="antiToggle">
+        <div v-show="isShow" class="whiteElement" v-on:click="toggle"></div>
+      </div>
+    </div>
+    <div class="window" v-show="isShow">
+      <h2>モーダルウィンドウ</h2>
+      <p><button v-on:click="antiToggle">閉じる</button></p>
+    </div>
+  </div>
+  <script>
+    const vm = new Vue({
+      el: '#app',
+// data
+      data() {
+        return {
+          isShow:false,
+          classSwitch:null,
+        }
+      },
+// method
+      methods: {
+        toggle(){
+          this.isShow= !this.isShow;
+          this.classSwitch="body_bg";
+          return;
+        },
+        antiToggle() {
+          this.isShow = false;
+          this.classSwitch = null;
+          return;
+        },
+        }
+      ,
+// computed
+      computed:{
+        
+      }
+    });
+  </script>
+  <style>
+  .body_bg{
+  background-color: rgb(224, 224, 224);
+  height: 100vh;
+  width: 100vw;
+}
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  }
+.whiteElement{
+  background-color: white;
+  height: 20vh;
+  width: 40vw;
+}
+.window::before{
+  position: absolute;
+  display: none;
+}
+.window{
+  position: relative;
+  top:-60vh;
+  left:30vw;
+  height: 20vh;
+  width: 40vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+  </style>
+</body>
+</html>

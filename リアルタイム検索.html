@@ -12,15 +12,9 @@
 <body>
   <div id="app">
     <input type="text" v-model="searchWord">
-    <ul class="target-area">
-      <li>佐藤</li>
-      <li>山田</li>
-      <li>鈴木</li>
-      <li>田中</li>
-      <li>aaa</li>
-    </ul>
-    <div v-for="item in searchResult">
-    <div>{{item}}</div></div>
+    <div v-for="item in search">
+      <div>{{item}}</div>
+    </div>
   </div>
   <script>
     const vm = new Vue({
@@ -34,9 +28,8 @@
             '山田',
             '鈴木',
             '田中',
-            'aaa'
           ],
-          searchResult:[''],
+          searchResult:[],
         }
       },
 // method
@@ -45,11 +38,15 @@
       ,
 // computed
       computed:{
-        search(){
-          const data = this.list;
-          this.searchResult =  data.filter(function(value){
-            return value === 'this.searchWord';
-          })
+        search:function(){
+          var searchResult = [];
+          for(var i in this.list){
+            var word = this.list[i];
+            if(word.indexOf(this.searchWord) !== -1){
+              searchResult.push(word);
+            }
+          }
+          return searchResult;
           }
       }
     });
